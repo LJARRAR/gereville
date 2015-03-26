@@ -19,7 +19,7 @@ public  class Connect {
      */
  public static Connection  cConnect () 
  {
-      String url = "jdbc:mysql://localhost/gereville";
+      String url = "jdbc:mysql://localhost/gerbville";
 
       try
       {
@@ -27,7 +27,7 @@ public  class Connect {
 
         //  On se connecte via la passerelle jdbc Oracle
 
-        return  DriverManager.getConnection(url,"gereville_user","gereville");
+        return  DriverManager.getConnection(url,"GerbVilleUser","cougar");
       }
         catch(SQLException sqlE)
         {
