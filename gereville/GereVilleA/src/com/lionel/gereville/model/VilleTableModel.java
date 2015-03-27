@@ -1,11 +1,9 @@
-package com.lionel.gereville.ui;
+package com.lionel.gereville.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
-
-import com.lionel.gereville.model.Ville;
 
 public class VilleTableModel extends AbstractTableModel {
 

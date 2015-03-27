@@ -41,8 +41,7 @@ public class GerevilleDAO {
 			
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new RuntimeException();
 		}
 		
 		
@@ -72,8 +71,7 @@ public class GerevilleDAO {
 				
 				
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new RuntimeException();
 			}
 			
 			return p;
@@ -116,8 +114,7 @@ public class GerevilleDAO {
 				
 				
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new RuntimeException();
 			}
 			
 			return villes;
@@ -137,8 +134,7 @@ public class GerevilleDAO {
 			stm.close();
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new RuntimeException();
 		}	
 		 
 		 

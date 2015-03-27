@@ -17,20 +17,15 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 
 import com.lionel.gereville.model.Pays;
 import com.lionel.gereville.model.Ville;
 
 /**
- * <p>Titre : </p>
- * <p>Description : </p>
- * <p>Copyright : Copyright (c) 2002</p>
- * <p>Société : </p>
- * @author non attribué
- * @version 1.0
+ * Main window
+ * @author lionel
+ *
  */
-
 public class UIGereville extends JFrame {
   /**
 	 * 
@@ -47,7 +42,6 @@ public class UIGereville extends JFrame {
 
  
   private JScrollPane jScrollPane1 = new JScrollPane();
-  private JTextArea txtArea = new JTextArea();
   private GridBagLayout gridBagLayout1 = new GridBagLayout();
   
   public interface UIGerevilleEventsListener {
@@ -127,13 +121,16 @@ public class UIGereville extends JFrame {
     
     cbPays.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(ActionEvent e) {
-			
-			listePays_clicked();
+        	 if (cbPays.getSelectedIndex()>-1){
+       		  
+        	//fire event to listeners
+       		  for (UIGerevilleEventsListener listener: listeners){
+       		    	listener.frmMainSelectedPaysEvent((Pays)cbPays.getSelectedItem());
+       		    }
+       	  }
 			
 		}
 	});
-    
-    txtArea.setEditable(false);
     
     contentPane.add(pPanel);
     contentPane.add(btnQuit,  new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
@@ -178,12 +175,15 @@ public class UIGereville extends JFrame {
  
 
   // fonction consulterPays()
-  
+  /**
+   * display Pays list
+   * @param payss Collection of pays
+   */
   public void afficheListePays(List<Pays> payss)
   {
 	//reinit
 	cbPays.removeAllItems();
-	
+	//add a fake country to reprensent ALL the countries
 	cbPays.addItem(new Pays("TOUS"));
 	for (Pays pays: payss){
 		 cbPays.addItem(pays);
@@ -206,30 +206,17 @@ public class UIGereville extends JFrame {
   }
   
   public void displayErrorMessage(String msg){
-	  JOptionPane.showMessageDialog(this,msg,"Erreur",
+	  JOptionPane.showMessageDialog(this,msg,"Error",
               JOptionPane.WARNING_MESSAGE);
   }
   
   public void displaySuccessMessage(String msg){
-	  JOptionPane.showMessageDialog(this,msg,"Succ�s",
+	  JOptionPane.showMessageDialog(this,msg,"Success",
               JOptionPane.INFORMATION_MESSAGE);
   }
 
   
 
 
-  
- //selection d'un pays
-  void listePays_clicked()
-  {
-	  if (cbPays.getSelectedIndex()>-1){
-		  
-	 
-		  for (UIGerevilleEventsListener listener: listeners){
-		    	listener.frmMainSelectedPaysEvent((Pays)cbPays.getSelectedItem());
-		    }
-	  }
-  
-  }
 
 }

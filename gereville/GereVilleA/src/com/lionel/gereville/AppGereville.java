@@ -6,7 +6,9 @@ import java.awt.Toolkit;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
+import com.lionel.gereville.dao.Connect;
 import com.lionel.gereville.dao.GerevilleDAO;
 import com.lionel.gereville.model.Pays;
 import com.lionel.gereville.model.Ville;
@@ -16,6 +18,7 @@ import com.lionel.gereville.ui.UIfrmPays;
 import com.lionel.gereville.ui.UIfrmPays.UIfrmPaysEventsListener;
 import com.lionel.gereville.ui.UIfrmVille;
 import com.lionel.gereville.ui.UIfrmVille.UIfrmVilleEventsListener;
+import com.lionel.gereville.utils.EventQueueProxy;
 
 public class AppGereville implements UIGerevilleEventsListener, UIfrmVilleEventsListener, UIfrmPaysEventsListener{
 
@@ -27,11 +30,20 @@ public class AppGereville implements UIGerevilleEventsListener, UIfrmVilleEvents
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+
+
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					
+
+					
 					AppGereville app = new AppGereville();
+					//catch RuntimeExceptions during execution
+					EventQueue queue = Toolkit.getDefaultToolkit().getSystemEventQueue();
+					queue.push(new EventQueueProxy());
+					
 					app.mainUI.setVisible(true);
 					
 
@@ -74,12 +86,24 @@ public class AppGereville implements UIGerevilleEventsListener, UIfrmVilleEvents
 		
 		// Center main frame
 		centerFrame(mainUI);
+		centerFrame(frmVille);
 
 		/**
 		 * initialize data
 		 */
 		
-		mainUI.afficheListePays(GerevilleDAO.getPays());
+		//check if database connection is Ok
+		try {
+			Connect.cConnect();
+		} catch (Exception e) {
+			 JOptionPane.showMessageDialog(mainUI,"was unable to connect to database, please check that your dabase server is started, error is displayed in console ","Error",
+		              JOptionPane.INFORMATION_MESSAGE);
+		}
+		
+	
+		
+		//mainUI.afficheListePays(GerevilleDAO.getPays());
+
 		
 		
 
@@ -162,7 +186,7 @@ public class AppGereville implements UIGerevilleEventsListener, UIfrmVilleEvents
 
 	@Override
 	public void frmMainNewVilleEvent() {
-		centerFrame(frmVille);
+		//centerFrame(frmVille);
 		frmVille.clear();
 		frmVille.afficherPays(GerevilleDAO.getPays());
 	    frmVille.setVisible(true);

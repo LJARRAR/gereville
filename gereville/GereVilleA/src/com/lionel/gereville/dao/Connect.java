@@ -4,7 +4,9 @@
  */
 
 package com.lionel.gereville.dao;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  *
@@ -15,29 +17,29 @@ public  class Connect {
 
     /**
      * 
-     * @return null if any pb
+     * @return RunTimeException() if any pb
      */
  public static Connection  cConnect () 
  {
-      String url = "jdbc:mysql://localhost/gereville";
+      final String URL = "jdbc:mysql://localhost/gereville";
 
       try
       {
     	  Class.forName("com.mysql.jdbc.Driver").newInstance();
 
-        //  On se connecte via la passerelle jdbc Oracle
-
-        return  DriverManager.getConnection(url,"gereville_user","gereville");
+        // 
+        return  DriverManager.getConnection(URL,"gereville_user","gereville");
       }
         catch(SQLException sqlE)
         {
+        	//TODO Logging
             System.out.println("Sql Erreur " + sqlE.getMessage());
-            return null;
+            throw new RuntimeException();
         }
         catch(Exception e)
         {
            e.printStackTrace();
-            return null;
+           throw new RuntimeException();
         }
  }
 }

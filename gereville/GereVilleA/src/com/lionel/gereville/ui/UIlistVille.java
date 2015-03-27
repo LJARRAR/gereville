@@ -11,6 +11,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
 import com.lionel.gereville.model.Ville;
+import com.lionel.gereville.model.VilleTableModel;
 import com.lionel.gereville.ui.UIGereville.UIGerevilleEventsListener;
 
 public class UIlistVille extends JTable implements MouseListener, KeyListener{
