@@ -11,7 +11,7 @@ import java.util.List;
 import com.lionel.gereville.model.Pays;
 import com.lionel.gereville.model.Ville;
 
-public class PaysDAO {
+public class GerevilleDAO {
 	 
 	 
 	 public static List<Pays> getPays(){
@@ -140,6 +140,50 @@ public class PaysDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
+		 
+		 
+	 }
+	 
+	 
+	 public static void createVille(Ville v) throws Exception{
+		 
+		 Connection c = Connect.cConnect();
+		 PreparedStatement stm;
+		 
+		try {
+			c.setAutoCommit(false);
+			
+			stm = c.prepareStatement("INSERT INTO ville (nom, nbhabitants) VALUES (?,?)",Statement.RETURN_GENERATED_KEYS);
+			stm.setString(1, v.getNom());
+			stm.setInt(2, (int)v.getNbHabitants());
+			
+			stm.executeUpdate();
+			
+			// get autoincrement
+			 ResultSet rs = stm.getGeneratedKeys(); 
+			 
+			 if (rs.next()) {
+				 int villenum = rs.getInt(1);
+				 stm = c.prepareStatement("insert into ville_pays (num_pays, num_ville) values (?,?)");
+				 stm.setInt(1, v.getPays().getNum());
+				 stm.setInt(2, villenum);
+				 stm.executeUpdate(); 
+			 }else{
+				 //pb if here
+				 c.rollback();
+				 throw new Exception("error while insert new data in table ville");
+			 }
+			 
+			 c.commit();
+			
+			stm.close();
+			
+		} catch (SQLException e) {
+			//pb if here
+			 c.rollback();
+			 throw new Exception("error while insert new data in table ville" + e.getMessage());
+		}	
+		 
 		 
 		 
 	 }

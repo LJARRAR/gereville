@@ -22,7 +22,7 @@ public class Ville implements Serializable {
 	private int numVille;
 	protected String nom;
 	protected Pays pays;
-	protected double nbHabitants;
+	protected int nbHabitants;
 	
 	// Constructeur par défaut
 		public Ville() {
@@ -34,7 +34,7 @@ public class Ville implements Serializable {
 			this.pays = sPays;
 		}
 
-		public Ville(String sNom, Pays sPays, double dNbHabitants) {
+		public Ville(String sNom, Pays sPays, int dNbHabitants) {
 			this.nom = sNom;
 			this.pays = sPays;
 			this.nbHabitants = dNbHabitants;
@@ -61,7 +61,7 @@ public class Ville implements Serializable {
 		return nbHabitants;
 	}
 
-	public void setNbHabitants(double nbHabitants) {
+	public void setNbHabitants(int nbHabitants) {
 		this.nbHabitants = nbHabitants;
 	}
 
