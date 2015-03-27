@@ -18,6 +18,7 @@ import com.lionel.gereville.ui.UIfrmPays;
 import com.lionel.gereville.ui.UIfrmPays.UIfrmPaysEventsListener;
 import com.lionel.gereville.ui.UIfrmVille;
 import com.lionel.gereville.ui.UIfrmVille.UIfrmVilleEventsListener;
+import com.lionel.gereville.ui.UIlistVille;
 import com.lionel.gereville.utils.EventQueueProxy;
 
 public class AppGereville implements UIGerevilleEventsListener, UIfrmVilleEventsListener, UIfrmPaysEventsListener{
@@ -26,6 +27,7 @@ public class AppGereville implements UIGerevilleEventsListener, UIfrmVilleEvents
 	private UIGereville mainUI;
 	private UIfrmVille frmVille;
 	private UIfrmPays frmPays;
+	private UIlistVille listVilleUI;
 	/**
 	 * Launch the application.
 	 */
@@ -69,8 +71,14 @@ public class AppGereville implements UIGerevilleEventsListener, UIfrmVilleEvents
 		/**
 		 * init views
 		 */
+
+		//inner components
+		//ville list
+		listVilleUI = new UIlistVille();
+		
+		
 		//main window
-		mainUI = new UIGereville();
+		mainUI = new UIGereville(listVilleUI);
 		mainUI.setVisible(false);
 		
 		//pays form
@@ -80,6 +88,7 @@ public class AppGereville implements UIGerevilleEventsListener, UIfrmVilleEvents
 		//ville form
 		frmVille = new UIfrmVille();
 		frmVille.setVisible(false);
+		
 		
 		//subscribe controller to views
 		mainUI.addListener(this);
@@ -99,6 +108,7 @@ public class AppGereville implements UIGerevilleEventsListener, UIfrmVilleEvents
 			Connect.cConnect();
 			
 			mainUI.afficheListePays(GerevilleDAO.getPays());
+			
 			
 		} catch (Exception e) {
 			 JOptionPane.showMessageDialog(mainUI,"was unable to connect to database, please check that your dabase server is started, error is displayed in console ","Error",
@@ -174,17 +184,19 @@ public class AppGereville implements UIGerevilleEventsListener, UIfrmVilleEvents
 		mainUI.clearListVilles();
 		if (pays.getNom().equals("TOUS")){
 			
+			//TODO not optimized 
 			for (Pays p: GerevilleDAO.getPays()){
 				List<Ville> villes = GerevilleDAO.getVilles(p.getNum());
-				
-				mainUI.afficherVilles(villes);
+				listVilleUI.afficherListe(villes);
+				//mainUI.afficherVilles(villes);
 			}
 			
 			
 	
 		}else{
 			List<Ville> villes = GerevilleDAO.getVilles(pays.getNum());
-			mainUI.afficherVilles(villes);
+			listVilleUI.afficherListe(villes);
+			//mainUI.afficherVilles(villes);
 		}
 		
 	}

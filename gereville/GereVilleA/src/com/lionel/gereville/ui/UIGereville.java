@@ -38,7 +38,7 @@ public class UIGereville extends JFrame {
   private JButton btnNewPays = new JButton("+");
   private JButton btnNewVille = new JButton();
   private JButton btnQuit = new JButton();
-  private UIlistVille uiListVilles = new UIlistVille();
+  private UIlistVille uiListVilles;
 
  
   private JScrollPane jScrollPane1 = new JScrollPane();
@@ -62,7 +62,8 @@ public class UIGereville extends JFrame {
   private List<UIGerevilleEventsListener> listeners = new ArrayList<UIGerevilleEventsListener>();
 
 
-  public UIGereville() {
+  public UIGereville(UIlistVille uiListVilles) {
+	  this.uiListVilles = uiListVilles;
 	  
     enableEvents(AWTEvent.WINDOW_EVENT_MASK);
 
@@ -197,9 +198,7 @@ public class UIGereville extends JFrame {
 	  
   }
   
-  public void afficherVilles(List<Ville> listeVilles){
-	  uiListVilles.afficherListe(listeVilles);
-  }
+
   
   public void clearListVilles(){
 	  uiListVilles.clear();
@@ -214,6 +213,13 @@ public class UIGereville extends JFrame {
 	  JOptionPane.showMessageDialog(this,msg,"Success",
               JOptionPane.INFORMATION_MESSAGE);
   }
+
+public void setVilleUI(UIlistVille listVilleui) {
+	uiListVilles = listVilleui;
+	
+}
+
+
 
   
 

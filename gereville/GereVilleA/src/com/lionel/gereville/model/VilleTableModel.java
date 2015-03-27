@@ -14,7 +14,8 @@ public class VilleTableModel extends AbstractTableModel {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private List<Ville> villes = new ArrayList<>();;
+	private List<Ville> villes = new ArrayList<>(0);
+	
 	private String[] columnsHeader = {"nom", "nbhabitant", "pays" };
 
 	@Override
@@ -53,6 +54,13 @@ public class VilleTableModel extends AbstractTableModel {
 		
 		fireTableRowsInserted(villes.size()-1, villes.size()-1);
 	}
+	
+	public void setVilles(List<Ville> villes){
+		this.villes = villes;
+		//reconstruct all
+		fireTableDataChanged();
+	}
+	
 	
 	public void clear(){
 		villes.clear();
