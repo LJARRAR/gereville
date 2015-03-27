@@ -13,6 +13,7 @@ public class VilleTableModel extends AbstractTableModel {
 	 * 
 	 */
 	
+	
 	private static final long serialVersionUID = 1L;
 	
 	private List<Ville> villes = new ArrayList<>();;
