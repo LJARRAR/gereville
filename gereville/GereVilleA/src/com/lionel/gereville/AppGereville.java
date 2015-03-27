@@ -37,12 +37,14 @@ public class AppGereville implements UIGerevilleEventsListener, UIfrmVilleEvents
 			public void run() {
 				try {
 					
-
+					
 					
 					AppGereville app = new AppGereville();
 					//catch RuntimeExceptions during execution
 					EventQueue queue = Toolkit.getDefaultToolkit().getSystemEventQueue();
 					queue.push(new EventQueueProxy());
+					
+					
 					
 					app.mainUI.setVisible(true);
 					
@@ -95,6 +97,9 @@ public class AppGereville implements UIGerevilleEventsListener, UIfrmVilleEvents
 		//check if database connection is Ok
 		try {
 			Connect.cConnect();
+			
+			mainUI.afficheListePays(GerevilleDAO.getPays());
+			
 		} catch (Exception e) {
 			 JOptionPane.showMessageDialog(mainUI,"was unable to connect to database, please check that your dabase server is started, error is displayed in console ","Error",
 		              JOptionPane.INFORMATION_MESSAGE);
@@ -102,7 +107,7 @@ public class AppGereville implements UIGerevilleEventsListener, UIfrmVilleEvents
 		
 	
 		
-		//mainUI.afficheListePays(GerevilleDAO.getPays());
+		
 
 		
 		
