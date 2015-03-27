@@ -1,4 +1,4 @@
-package com.lionel.gereville.ihm;
+package com.lionel.gereville.ui;
 
 import java.util.ArrayList;
 import java.util.List;

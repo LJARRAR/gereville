@@ -1,4 +1,4 @@
-package com.lionel.gereville.ihm;
+package com.lionel.gereville.ui;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -23,13 +23,13 @@ public class UIfrmPays extends javax.swing.JFrame {
 
 	private JLabel lblNom = new JLabel("Nom");
 	private JTextField txtNom = new JTextField();
-	private JLabel lblPresident = new JLabel("Président");
+	private JLabel lblPresident = new JLabel("Prï¿½sident");
 	private JTextField txtPresident = new JTextField();
 	private JButton btnOK = new JButton("OK");
 	private JButton btnCancel = new JButton("Retour");
 
 	public interface UIfrmPaysEventsListener {
-		public void onNewPays(Pays p);
+		public void frmPaysNewPaysEvent(Pays p);
 	}
 
 	private UIfrmPaysEventsListener listener;
@@ -96,7 +96,7 @@ public class UIfrmPays extends javax.swing.JFrame {
 		p.setPresident(txtPresident.getText());
 
 		// fire event to listener
-		listener.onNewPays(p);
+		listener.frmPaysNewPaysEvent(p);
 		
 
 	}

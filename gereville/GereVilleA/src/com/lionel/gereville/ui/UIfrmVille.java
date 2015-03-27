@@ -1,4 +1,4 @@
-package com.lionel.gereville.ihm;
+package com.lionel.gereville.ui;
 
 import java.awt.AWTEvent;
 import java.awt.Dimension;
@@ -64,7 +64,23 @@ public class UIfrmVille extends JFrame {
 	private JButton btnValider = new JButton();
 	private GridBagLayout gridBagLayout1 = new GridBagLayout();
 	
-	private Ville currentVille = null; 
+	public interface UIfrmVilleEventsListener {
+
+		/**
+		 * fired when user click on Cancel button
+		 */
+		public void frmVilleCancelEvent();
+		/**
+		 * fired when a new Ville is created
+		 * @param v
+		 */
+		public void frmVilleNewVilleEvent(Ville v);
+		/**
+		 * fired when an update Ville events
+		 * @param v
+		 */
+		public void frmVilleUpdateVilleEvent(Ville v);
+	}
 
 	private List<UIfrmVilleEventsListener> listeners = new ArrayList<UIfrmVilleEventsListener>();
 
@@ -81,7 +97,6 @@ public class UIfrmVille extends JFrame {
 	}
 
 	public void clear(){
-		currentVille = null;
 		cbIsCapitale.setSelected(false);
 		txtNbHabitants.setText("");
 		txtVilleNom.setText("");
@@ -233,7 +248,7 @@ public class UIfrmVille extends JFrame {
 			nbHabitants = Integer.parseInt(txtNbHabitants.getText());
 			
 		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(this,	"Nombre d'habitants : Champ numérique ou vide obligatoire","Erreur saisie",JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(this,	"Nombre d'habitants : Champ numï¿½rique ou vide obligatoire","Erreur saisie",JOptionPane.WARNING_MESSAGE);
 			return;
 		}
 		
@@ -248,9 +263,9 @@ public class UIfrmVille extends JFrame {
 		}
 		
 		
-		//execution des évènements
+		//execution des ï¿½vï¿½nements
 		for (UIfrmVilleEventsListener events: listeners){
-			events.onNewVille(v);
+			events.frmVilleNewVilleEvent(v);
 		}
 			
 
@@ -266,7 +281,6 @@ public class UIfrmVille extends JFrame {
 	}
 	
 	public void afficherVille(Ville v){
-		currentVille = v;
 		txtVilleNom.setText(v.getNom());
 		cbPays.setSelectedItem(v.getPays());
 		txtNbHabitants.setText(String.valueOf(v.getNbHabitants()));

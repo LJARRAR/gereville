@@ -1,4 +1,4 @@
-package com.lionel.gereville.ihm;
+package com.lionel.gereville.ui;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -11,6 +11,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
 import com.lionel.gereville.model.Ville;
+import com.lionel.gereville.ui.UIGereville.UIGerevilleEventsListener;
 
 public class UIlistVille extends JTable implements MouseListener, KeyListener{
 
@@ -56,7 +57,7 @@ public class UIlistVille extends JTable implements MouseListener, KeyListener{
 		if (e.getClickCount() ==2){
 			int row = getSelectedRow();
 			
-			listener.onSelectedVille(villeModel.getVille(row));
+			listener.frmMainSelectedVilleEvent(villeModel.getVille(row));
 		}
 		
 	}
@@ -85,10 +86,10 @@ public class UIlistVille extends JTable implements MouseListener, KeyListener{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode()==KeyEvent.VK_DELETE){
-			int reponse = JOptionPane.showConfirmDialog(this, "vous êtes sur de vouloir supprimer une ville ?");
+			int reponse = JOptionPane.showConfirmDialog(this, "vous ï¿½tes sur de vouloir supprimer une ville ?");
 			if (reponse==JOptionPane.YES_OPTION){
 				int row = getSelectedRow();
-				listener.onDeleteVille(villeModel.getVille(row));
+				listener.frmMainDeleteVilleEvent(villeModel.getVille(row));
 			}
 		}
 		

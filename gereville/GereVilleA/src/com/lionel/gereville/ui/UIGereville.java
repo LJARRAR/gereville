@@ -1,4 +1,4 @@
-package com.lionel.gereville.ihm;
+package com.lionel.gereville.ui;
 
 import java.awt.AWTEvent;
 import java.awt.Dimension;
@@ -49,6 +49,20 @@ public class UIGereville extends JFrame {
   private JScrollPane jScrollPane1 = new JScrollPane();
   private JTextArea txtArea = new JTextArea();
   private GridBagLayout gridBagLayout1 = new GridBagLayout();
+  
+  public interface UIGerevilleEventsListener {
+		
+		
+		public void frmMainExitEvent();
+		public void frmMainSelectedPaysEvent(Pays pays);
+		public void frmMainNewVilleEvent();
+		public void frmMainSelectedVilleEvent(Ville v);
+		public void frmMainDeleteVilleEvent(Ville v);
+		public void frmMainNewPaysEvent();
+		
+
+	}
+  
   
   //listeners
   private List<UIGerevilleEventsListener> listeners = new ArrayList<UIGerevilleEventsListener>();
@@ -152,13 +166,13 @@ public class UIGereville extends JFrame {
   {
 
 	  for (UIGerevilleEventsListener listener: listeners){
-		  listener.onBtnNewVilleClicked();
+		  listener.frmMainNewVilleEvent();
 	  }
   }
 
   private void btnNewPays_event(ActionEvent e){
 	  for (UIGerevilleEventsListener listener: listeners){
-		  listener.onBtnNewPaysClicked();
+		  listener.frmMainNewPaysEvent();
 	  }
   }
  
@@ -197,7 +211,7 @@ public class UIGereville extends JFrame {
   }
   
   public void displaySuccessMessage(String msg){
-	  JOptionPane.showMessageDialog(this,msg,"Succès",
+	  JOptionPane.showMessageDialog(this,msg,"Succï¿½s",
               JOptionPane.INFORMATION_MESSAGE);
   }
 
@@ -212,7 +226,7 @@ public class UIGereville extends JFrame {
 		  
 	 
 		  for (UIGerevilleEventsListener listener: listeners){
-		    	listener.onSelectedPays((Pays)cbPays.getSelectedItem());
+		    	listener.frmMainSelectedPaysEvent((Pays)cbPays.getSelectedItem());
 		    }
 	  }
   
