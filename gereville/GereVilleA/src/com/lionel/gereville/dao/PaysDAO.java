@@ -143,4 +143,35 @@ public class PaysDAO {
 		 
 		 
 	 }
+	 public static void createVille(Ville v) {
+		 
+		 Connection c = Connect.cConnect();
+		 PreparedStatement stm;
+		try {
+			stm = c.prepareStatement("INSERT INTO ville (nom, nbhabitants) VALUES (?,?)", Statement.RETURN_GENERATED_KEYS);
+			stm.setString(1, v.getNom());
+			stm.setDouble(2, v.getNbHabitants());
+			
+			
+			stm.executeUpdate();
+			
+			ResultSet rs = stm.getGeneratedKeys();
+
+		    if (rs.next()) {
+		        int villenum = rs.getInt(1);
+		        stm = c.prepareStatement("insert into ville_pays (num_pays, num_ville) values (?,?)");
+		        stm.setInt(1, v.getPays().getNum());
+		        stm.setInt(2, villenum);
+		        stm.executeUpdate();
+		    }
+			
+			stm.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		 
+		 
+	 }
 }

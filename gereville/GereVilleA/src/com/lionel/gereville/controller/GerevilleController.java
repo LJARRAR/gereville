@@ -98,15 +98,18 @@ public class GerevilleController implements UIGerevilleEventsListener, UIfrmVill
 		//ajouter la ville au pays
 		Pays pays = v.getPays();
 		//already exist ?
-		if( pays.getVilles().contains(v)){
-			frmVille.displayErrorMessage("Ville " + v + " existe déjà");
-		}else{
-			pays.addVille(v);
-			uiGereville.selectPays(v.getPays()); //on indique qu'on veut afficher le pays en cours
-			frmVille.setVisible(false);
-		}
-		
-		
+//		if( pays.getVilles().contains(v)){
+//			frmVille.displayErrorMessage("Ville " + v + " existe déjà");
+//		}else{
+//			pays.addVille(v);
+//			uiGereville.selectPays(v.getPays()); //on indique qu'on veut afficher le pays en cours
+//			frmVille.setVisible(false);
+//		}
+//		
+//		
+		PaysDAO.createVille(v);
+		uiGereville.afficheListePays(PaysDAO.getPays());
+		frmPays.setVisible(false);
 	}
 
 	@Override
