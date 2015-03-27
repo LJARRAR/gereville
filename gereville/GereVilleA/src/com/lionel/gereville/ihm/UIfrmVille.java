@@ -73,7 +73,6 @@ public class UIfrmVille extends JFrame {
 
 		jbInit();
 		
-
 		
 	}
 
