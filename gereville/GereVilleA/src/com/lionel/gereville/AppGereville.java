@@ -78,7 +78,7 @@ public class AppGereville implements UIGerevilleEventsListener, UIfrmVilleEvents
 		
 		
 		//main window
-		mainUI = new UIGereville(listVilleUI);
+		mainUI = new UIGereville(listVilleUI.getView());
 		mainUI.setVisible(false);
 		
 		//pays form
@@ -90,7 +90,8 @@ public class AppGereville implements UIGerevilleEventsListener, UIfrmVilleEvents
 		frmVille.setVisible(false);
 		
 		
-		//subscribe controller to views
+		//subscribe controller to components & views
+		listVilleUI.addListener(this);
 		mainUI.addListener(this);
 		frmPays.addListener(this);
 		frmVille.addListener(this);
@@ -113,6 +114,7 @@ public class AppGereville implements UIGerevilleEventsListener, UIfrmVilleEvents
 		} catch (Exception e) {
 			 JOptionPane.showMessageDialog(mainUI,"was unable to connect to database, please check that your dabase server is started, error is displayed in console ","Error",
 		              JOptionPane.INFORMATION_MESSAGE);
+			 
 		}
 		
 	
@@ -158,12 +160,14 @@ public class AppGereville implements UIGerevilleEventsListener, UIfrmVilleEvents
 		//TODO check if already exist
 		try {
 			GerevilleDAO.createVille(v);
+			//if exverything went fine update view list
+			listVilleUI.addVille(v);
+			//mainUI.selectPays(v.getPays());
+			frmVille.setVisible(false);
 		} catch (Exception e) {
 			frmVille.displayErrorMessage(e.getMessage());
 		}
-				
-		mainUI.selectPays(v.getPays());
-		frmVille.setVisible(false);
+		
 		
 	}
 
@@ -181,7 +185,7 @@ public class AppGereville implements UIGerevilleEventsListener, UIfrmVilleEvents
 
 	@Override
 	public void frmMainSelectedPaysEvent(Pays pays) {
-		mainUI.clearListVilles();
+		listVilleUI.clear();
 		if (pays.getNom().equals("TOUS")){
 			
 			//TODO not optimized 

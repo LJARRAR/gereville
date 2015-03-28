@@ -14,27 +14,26 @@ import com.lionel.gereville.model.Ville;
 import com.lionel.gereville.model.VilleTableModel;
 import com.lionel.gereville.ui.UIGereville.UIGerevilleEventsListener;
 
-public class UIlistVille extends JTable{
+public class UIlistVille{
 
 	
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
+	private JTable table;
 	private VilleTableModel villeModel;
 	private UIGerevilleEventsListener listener;
 
 	public UIlistVille(){
+		
+		table = new JTable();
 		villeModel = new VilleTableModel();
-		setModel(villeModel);
-		setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //seulement une selection est possible
-		addMouseListener(new MouseAdapter() {
+		
+		
+		table.setModel(villeModel);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //seulement une selection est possible
+		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				if (e.getClickCount() ==2){
-					int row = getSelectedRow();
+					int row = table.getSelectedRow();
 					
 					listener.frmMainSelectedVilleEvent(villeModel.getVille(row));
 				}
@@ -42,14 +41,14 @@ public class UIlistVille extends JTable{
 			}
 		});
 		//addMouseListener(this);
-		addKeyListener(new KeyAdapter() {
+		table.addKeyListener(new KeyAdapter() {
 			
 			@Override
 			public void keyTyped(KeyEvent e) {
 				if (e.getKeyCode()==KeyEvent.VK_DELETE){
 					int reponse = JOptionPane.showConfirmDialog(null, "sure ?");
 					if (reponse==JOptionPane.YES_OPTION){
-						int row = getSelectedRow();
+						int row = table.getSelectedRow();
 						listener.frmMainDeleteVilleEvent(villeModel.getVille(row));
 					}
 				}
@@ -58,17 +57,26 @@ public class UIlistVille extends JTable{
 			
 		});
 	}
+	
+	public JTable getView(){
+		return  this.table;
+	}
+
 
 	public void addListener(UIGerevilleEventsListener listener){
 		this.listener = listener;
 	}
 	
 	public void afficherListe(List<Ville> villes){
-		
-		villeModel.setVilles(villes);
-		
+		villeModel.addAllVille(villes);
 	}
 	
+	public void addVille(Ville v){
+		villeModel.addVille(v);
+	}
+	/**
+	 * clear all data
+	 */
 	public void clear(){
 		villeModel.clear();
 	}

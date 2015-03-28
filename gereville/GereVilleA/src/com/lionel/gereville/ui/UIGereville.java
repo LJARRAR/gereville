@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 import com.lionel.gereville.model.Pays;
 import com.lionel.gereville.model.Ville;
@@ -38,7 +39,7 @@ public class UIGereville extends JFrame {
   private JButton btnNewPays = new JButton("+");
   private JButton btnNewVille = new JButton();
   private JButton btnQuit = new JButton();
-  private UIlistVille uiListVilles;
+  private JTable uiListVilles;
 
  
   private JScrollPane jScrollPane1 = new JScrollPane();
@@ -62,7 +63,7 @@ public class UIGereville extends JFrame {
   private List<UIGerevilleEventsListener> listeners = new ArrayList<UIGerevilleEventsListener>();
 
 
-  public UIGereville(UIlistVille uiListVilles) {
+  public UIGereville(JTable uiListVilles) {
 	  this.uiListVilles = uiListVilles;
 	  
     enableEvents(AWTEvent.WINDOW_EVENT_MASK);
@@ -73,7 +74,6 @@ public class UIGereville extends JFrame {
   
   public void addListener(UIGerevilleEventsListener listener){
 	  listeners.add(listener);
-	  uiListVilles.addListener(listener);
   }
   
   
@@ -97,7 +97,9 @@ public class UIGereville extends JFrame {
     
     btnNewPays.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        btnNewPays_event(e);
+    	  for (UIGerevilleEventsListener listener: listeners){
+    		  listener.frmMainNewPaysEvent();
+    	  }
       }
     });
     
@@ -105,7 +107,9 @@ public class UIGereville extends JFrame {
     btnNewVille.setText("Nouvelle Ville");
     btnNewVille.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        btnNewVille_event(e);
+    	  for (UIGerevilleEventsListener listener: listeners){
+    		  listener.frmMainNewVilleEvent();
+    	  }
       }
     });
     
@@ -113,7 +117,7 @@ public class UIGereville extends JFrame {
     btnQuit.setText("Quitter");
     btnQuit.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        jButton2_actionPerformed(e);
+    	  System.exit(0);
       }
     });
     
@@ -146,7 +150,7 @@ public class UIGereville extends JFrame {
 
   }
 
-  //Supplanté, ainsi nous pouvons sortir quand la fenêtre est fermée
+  // catch window close event
     @Override
   protected void processWindowEvent(WindowEvent e) {
     super.processWindowEvent(e);
@@ -155,27 +159,6 @@ public class UIGereville extends JFrame {
     }
   }
 
-  private void jButton2_actionPerformed(ActionEvent e)
-  {
-    System.exit(0);
-  }
-
-  private void btnNewVille_event(ActionEvent e)
-  {
-
-	  for (UIGerevilleEventsListener listener: listeners){
-		  listener.frmMainNewVilleEvent();
-	  }
-  }
-
-  private void btnNewPays_event(ActionEvent e){
-	  for (UIGerevilleEventsListener listener: listeners){
-		  listener.frmMainNewPaysEvent();
-	  }
-  }
- 
-
-  // fonction consulterPays()
   /**
    * display Pays list
    * @param payss Collection of pays
@@ -200,9 +183,7 @@ public class UIGereville extends JFrame {
   
 
   
-  public void clearListVilles(){
-	  uiListVilles.clear();
-  }
+
   
   public void displayErrorMessage(String msg){
 	  JOptionPane.showMessageDialog(this,msg,"Error",
@@ -213,16 +194,6 @@ public class UIGereville extends JFrame {
 	  JOptionPane.showMessageDialog(this,msg,"Success",
               JOptionPane.INFORMATION_MESSAGE);
   }
-
-public void setVilleUI(UIlistVille listVilleui) {
-	uiListVilles = listVilleui;
-	
-}
-
-
-
-  
-
 
 
 }
