@@ -28,6 +28,10 @@ public class AppGereville implements UIGerevilleEventsListener, UIfrmVilleEvents
 	private UIfrmVille frmVille;
 	private UIfrmPays frmPays;
 	private UIlistVille listVilleUI;
+	
+
+	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -104,6 +108,9 @@ public class AppGereville implements UIGerevilleEventsListener, UIfrmVilleEvents
 		 * initialize data
 		 */
 		
+		//villeModel = new VilleTableModel();
+		
+		
 		//check if database connection is Ok
 		try {
 			Connect.cConnect();
@@ -160,7 +167,7 @@ public class AppGereville implements UIGerevilleEventsListener, UIfrmVilleEvents
 		//TODO check if already exist
 		try {
 			GerevilleDAO.createVille(v);
-			//if exverything went fine update view list
+			//if everything went fine update view list
 			listVilleUI.addVille(v);
 			//mainUI.selectPays(v.getPays());
 			frmVille.setVisible(false);
@@ -173,6 +180,7 @@ public class AppGereville implements UIGerevilleEventsListener, UIfrmVilleEvents
 
 	@Override
 	public void frmVilleUpdateVilleEvent(Ville v) {
+		listVilleUI.updateVille(v); //notify model & view
 		mainUI.selectPays(v.getPays()); //on indique qu'on veut afficher le pays en cours
 		
 	}

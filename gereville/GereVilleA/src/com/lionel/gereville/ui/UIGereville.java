@@ -86,7 +86,6 @@ public class UIGereville extends JFrame {
 	contentPane = (JPanel) this.getContentPane();
 	contentPane.setLayout(gridBagLayout1);
 	
-	
     lblPays.setFont(new java.awt.Font("SansSerif", 1, 16));
     lblPays.setText("Pays");
     

@@ -55,6 +55,15 @@ public class VilleTableModel extends AbstractTableModel {
 		fireTableRowsInserted(villes.size()-1, villes.size()-1);
 	}
 	
+	public void updateVille(Ville v){
+		int i = villes.indexOf(v);
+		if (i>-1){ //exist
+			villes.set(i, v); //replace
+			fireTableRowsUpdated(i, i);
+		}
+		
+	}
+	
 	public void addAllVille(List<Ville> vs){
 		villes.addAll(vs);
 	}

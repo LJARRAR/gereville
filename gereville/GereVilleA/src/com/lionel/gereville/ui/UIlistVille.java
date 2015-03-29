@@ -24,7 +24,6 @@ public class UIlistVille{
 	public UIlistVille(){
 		
 		table = new JTable();
-		villeModel = new VilleTableModel();
 		
 		
 		table.setModel(villeModel);
@@ -73,6 +72,10 @@ public class UIlistVille{
 	
 	public void addVille(Ville v){
 		villeModel.addVille(v);
+	}
+	
+	public void updateVille(Ville v){
+		villeModel.updateVille(v);
 	}
 	/**
 	 * clear all data
