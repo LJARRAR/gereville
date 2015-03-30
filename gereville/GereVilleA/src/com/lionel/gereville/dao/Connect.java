@@ -19,7 +19,7 @@ public  class Connect {
      */
  public static Connection  cConnect () 
  {
-      String url = "jdbc:mysql://localhost/gereville";
+      String url = "jdbc:mysql://localhost/gerville";
 
       try
       {

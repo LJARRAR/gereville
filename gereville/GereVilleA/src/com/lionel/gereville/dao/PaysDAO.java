@@ -32,6 +32,7 @@ public class PaysDAO {
 	        while (rs.next()){
 	        	int nbhabitant = rs.getInt("nbhabitant");
 	        	Pays p = new Pays(rs.getString("nom"));
+	        	
 	        	p.setNum(rs.getInt("num"));
 	        	p.setNbHabitants(nbhabitant);
 	        	
@@ -126,18 +127,31 @@ public class PaysDAO {
 	 public static void createPays(Pays p) {
 		 
 		 Connection c = Connect.cConnect();
+	
 		 PreparedStatement stm;
 		try {
+			
+			c.setAutoCommit(false);
+			
 			stm = c.prepareStatement("INSERT INTO pays (nom, nbhabitant) VALUES (?,?)");
 			stm.setString(1, p.getNom());
 			stm.setInt(2, p.getNbHabitants());
 			
 			stm.execute ();
+		
+				
+			c.commit();// c'est ici que l'on valide la transaction
+		    c.setAutoCommit(true);
 			
-			stm.close();
-			
+		    stm.close();
+		    
+  
+		    
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
+			try{c.rollback();}catch(Exception e1){}
+			
+		
 			e.printStackTrace();
 		}	
 		 

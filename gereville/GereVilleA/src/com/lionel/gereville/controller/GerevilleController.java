@@ -3,6 +3,7 @@ package com.lionel.gereville.controller;
 import java.util.List;
 
 import com.lionel.gereville.dao.PaysDAO;
+import com.lionel.gereville.dao.VilleDAO;
 import com.lionel.gereville.ihm.UIGereville;
 import com.lionel.gereville.ihm.UIGerevilleEventsListener;
 import com.lionel.gereville.ihm.UIfrmPays;
@@ -101,7 +102,8 @@ public class GerevilleController implements UIGerevilleEventsListener, UIfrmVill
 		if( pays.getVilles().contains(v)){
 			frmVille.displayErrorMessage("Ville " + v + " existe déjà");
 		}else{
-			pays.addVille(v);
+	//		pays.addVille(v);
+			VilleDAO.createVille(v);
 			uiGereville.selectPays(v.getPays()); //on indique qu'on veut afficher le pays en cours
 			frmVille.setVisible(false);
 		}
@@ -170,6 +172,8 @@ public class GerevilleController implements UIGerevilleEventsListener, UIfrmVill
 //		}
 		
 		onSelectedPays(v.getPays());
+		VilleDAO.deleteVille(v);
+		uiGereville.afficheListePays(PaysDAO.getPays());
 		
 	}
 

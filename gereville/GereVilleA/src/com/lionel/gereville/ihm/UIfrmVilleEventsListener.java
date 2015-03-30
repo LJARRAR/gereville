@@ -7,4 +7,5 @@ public interface UIfrmVilleEventsListener {
 	public void onCancelClicked();
 	public void onNewVille(Ville v);
 	public void onUpdatedVille(Ville v);
+	public void onDeleteVille(Ville v);
 }
