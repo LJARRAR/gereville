@@ -18,7 +18,7 @@ public class UIlistVille{
 
 	
 	private JTable table;
-	private VilleTableModel villeModel;
+	private VilleTableModel villeModel = new VilleTableModel();
 	private UIGerevilleEventsListener listener;
 
 	public UIlistVille(){

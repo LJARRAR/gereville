@@ -55,6 +55,7 @@ public class UIfrmVille extends JFrame {
 	private JComboBox<Pays> cbPays = new JComboBox<>();
 	private JLabel lblVillePays = new JLabel();
 	private JTextField txtVilleNom = new JTextField();
+	private JTextField txtNumVille = new JTextField();
 	//private JTextField txtVillePays = new JTextField();
 	private JTextField txtNbHabitants = new JTextField();
 	private JLabel lblNbHabitants = new JLabel();
@@ -256,17 +257,28 @@ public class UIfrmVille extends JFrame {
 		Pays p =  (Pays) cbPays.getSelectedItem();
 
 		Ville v = new Ville(txtVilleNom.getText(), p, nbHabitants);
+		
 		if (cbIsCapitale.isSelected()){
 			
 			p.setCapitale(v);
 
 		}
 		
-		
-		//execution des �v�nements
-		for (UIfrmVilleEventsListener events: listeners){
-			events.frmVilleNewVilleEvent(v);
+		if (txtNumVille.getText().isEmpty()){ //create mode
+			//fire create event
+			for (UIfrmVilleEventsListener events: listeners){
+				events.frmVilleNewVilleEvent(v);
+			}
+		}else{
+			//update mode
+			v.setNumVille(Integer.valueOf(txtNumVille.getText()));
+			for (UIfrmVilleEventsListener events: listeners){
+				events.frmVilleUpdateVilleEvent(v);
+			}
 		}
+		
+		
+		
 			
 
 		//this.setVisible(false);
@@ -281,6 +293,7 @@ public class UIfrmVille extends JFrame {
 	}
 	
 	public void afficherVille(Ville v){
+		txtNumVille.setText(String.valueOf(v.getNumVille()));
 		txtVilleNom.setText(v.getNom());
 		cbPays.setSelectedItem(v.getPays());
 		txtNbHabitants.setText(String.valueOf(v.getNbHabitants()));
