@@ -55,7 +55,6 @@ public class UIlistVille extends JTable implements MouseListener, KeyListener{
 		// TODO Auto-generated method stub
 		if (e.getClickCount() ==2){
 			int row = getSelectedRow();
-			
 			listener.onSelectedVille(villeModel.getVille(row));
 		}
 		

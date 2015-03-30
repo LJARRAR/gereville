@@ -58,14 +58,27 @@ public class PaysDAO {
 			try {
 				stm = c.createStatement();
 				
-				String sql = "select * from pays WHERE num=" + numPays;
+				String sql = "select * from pays left join ville on pays.capitale = ville.num WHERE pays.num=" + numPays;
 		        ResultSet rs = stm.executeQuery(sql);
 		      
 		        
-		        while (rs.next()){
+		        if (rs.next()){
 		        	p = new Pays(rs.getString("nom"));
 		        	p.setNum(rs.getInt("num"));
 		        	p.setNbHabitants(rs.getInt("nbhabitant"));
+		        	
+		        	//creer objet ville
+		        	
+		        	int nbhabitant = rs.getInt("ville.nbhabitants");
+		        	String nomVille = rs.getString("ville.nom");
+		        	int numVille = rs.getInt("ville.num");
+		        	
+		        	Ville v = new Ville();
+		        	v.setNom(nomVille);
+		        	v.setNbHabitants(nbhabitant);
+		        	v.setNumVille(numVille);
+		        	
+		        	p.setCapitale(v);
 		        	
 		        }
 		        rs.close();
@@ -148,11 +161,12 @@ public class PaysDAO {
 		 Connection c = Connect.cConnect();
 		 PreparedStatement stm;
 		try {
+//			c.setAutoCommit(false);
+			
 			stm = c.prepareStatement("INSERT INTO ville (nom, nbhabitants) VALUES (?,?)", Statement.RETURN_GENERATED_KEYS);
 			stm.setString(1, v.getNom());
 			stm.setDouble(2, v.getNbHabitants());
-			
-			
+					
 			stm.executeUpdate();
 			
 			ResultSet rs = stm.getGeneratedKeys();
@@ -163,8 +177,16 @@ public class PaysDAO {
 		        stm.setInt(1, v.getPays().getNum());
 		        stm.setInt(2, villenum);
 		        stm.executeUpdate();
+		        
+		        Ville capitale = v.getPays().getCapitale();
+			    
+			    if (v.equals(capitale)) {
+			    	stm = c.prepareStatement("update pays set capitale = (?) where num = (?)");
+			    	stm.setInt(1, villenum);
+			        stm.setInt(2, v.getPays().getNum());
+			    	stm.executeUpdate();
+			    }
 		    }
-			
 			stm.close();
 			
 		} catch (SQLException e) {
@@ -174,4 +196,23 @@ public class PaysDAO {
 		 
 		 
 	 }
+//------------------------------> Here!
+//	 public static void createCapitale(Pays capitale) {
+//		 
+//		 Connection c = Connect.cConnect();
+//		 PreparedStatement stm;
+//		try {
+//			stm = c.prepareStatement("INSERT INTO pays (capitale) VALUES (?)");
+//			stm.setInt(1, capitale.getCapitale());
+//			
+//			stm.execute ();
+//			
+//			stm.close();
+//			
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}	
+//		 
+//	 }
 }

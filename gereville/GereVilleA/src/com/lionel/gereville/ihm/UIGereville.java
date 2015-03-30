@@ -21,6 +21,8 @@ import javax.swing.JTextArea;
 
 import com.lionel.gereville.model.Pays;
 import com.lionel.gereville.model.Ville;
+import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
 
 /**
  * <p>Titre : </p>
@@ -50,8 +52,12 @@ public class UIGereville extends JFrame {
   private JTextArea txtArea = new JTextArea();
   private GridBagLayout gridBagLayout1 = new GridBagLayout();
   
+  private final JButton btnCorriger = new JButton("Corriger");
+  private final JButton btnEffacer = new JButton("Effacer");
+  
   //listeners
   private List<UIGerevilleEventsListener> listeners = new ArrayList<UIGerevilleEventsListener>();
+
 
 
   public UIGereville() {
@@ -99,16 +105,6 @@ public class UIGereville extends JFrame {
         btnNewVille_event(e);
       }
     });
-    
-    btnQuit.setToolTipText("");
-    btnQuit.setText("Quitter");
-    btnQuit.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(ActionEvent e) {
-        jButton2_actionPerformed(e);
-      }
-    });
-    
-    
    
     
     cbPays.addActionListener(new java.awt.event.ActionListener() {
@@ -121,14 +117,48 @@ public class UIGereville extends JFrame {
     
     txtArea.setEditable(false);
     
-    contentPane.add(pPanel);
-    contentPane.add(btnQuit,  new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(24, 31, 28, 52), 11, 5));
+    GridBagConstraints gbc_pPanel = new GridBagConstraints();
+    gbc_pPanel.insets = new Insets(0, 0, 5, 5);
+    gbc_pPanel.gridx = 0;
+    gbc_pPanel.gridy = 0;
+    contentPane.add(pPanel, gbc_pPanel);
+    
+    GridBagConstraints gbc_btnCorriger = new GridBagConstraints();
+    gbc_btnCorriger.insets = new Insets(0, 0, 0, 5);
+    gbc_btnCorriger.gridx = 1;
+    gbc_btnCorriger.gridy = 2;
+    
+    btnCorriger.addActionListener(new ActionListener() {
+    	public void actionPerformed(ActionEvent e) {
+    		btnNewVille_event(e);
+    		UIfrmVille.btnValider.setVisible(false);
+    		
+    		
+    	}
+    });
+    getContentPane().add(btnCorriger, gbc_btnCorriger);
+    
+    GridBagConstraints gbc_btnEffacer = new GridBagConstraints();
+    gbc_btnEffacer.insets = new Insets(0, 0, 0, 5);
+    gbc_btnEffacer.gridx = 2;
+    gbc_btnEffacer.gridy = 2;
+    getContentPane().add(btnEffacer, gbc_btnEffacer);
+    
     contentPane.add(btnNewVille,  new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(24, 53, 28, 0), 0, 5));
-     contentPane.add(jScrollPane1,  new GridBagConstraints(0, 1, 3, 1, 1.0, 1.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(15, 39, 0, 41), 409, 153));
-    jScrollPane1.getViewport().add(uiListVilles, null);
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(24, 53, 28, 5), 0, 5));
+     contentPane.add(jScrollPane1,  new GridBagConstraints(0, 1, 7, 1, 1.0, 1.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(15, 39, 5, 41), 409, 153));
+    jScrollPane1.setViewportView(uiListVilles);
+    
+    btnQuit.setToolTipText("");
+    btnQuit.setText("Quitter");
+    btnQuit.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        jButton2_actionPerformed(e);
+      }
+    });
+    contentPane.add(btnQuit,  new GridBagConstraints(5, 2, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(24, 31, 28, 52), 11, 5));
 
    
 

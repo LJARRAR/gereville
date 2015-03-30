@@ -23,6 +23,7 @@ public class Ville implements Serializable {
 	protected String nom;
 	protected Pays pays;
 	protected double nbHabitants;
+	protected int numCapitale;
 	
 	// Constructeur par défaut
 		public Ville() {
@@ -52,7 +53,6 @@ public class Ville implements Serializable {
 			this.numVille = numVille;
 		}
 
-
 	public String getNom() {
 		return nom;
 	}
@@ -70,8 +70,6 @@ public class Ville implements Serializable {
 	}
 
 	
-	
-	
 	public Pays getPays() {
 		return pays;
 	}
@@ -81,12 +79,12 @@ public class Ville implements Serializable {
 	}
 
 
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((nom == null) ? 0 : nom.hashCode());
-		result = prime * result + ((pays == null) ? 0 : pays.hashCode());
+		result = prime * result + numVille;
 		return result;
 	}
 
@@ -100,18 +98,12 @@ public class Ville implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Ville other = (Ville) obj;
-		if (nom == null) {
-			if (other.nom != null)
-				return false;
-		} else if (!nom.equals(other.nom))
-			return false;
-		if (pays == null) {
-			if (other.pays != null)
-				return false;
-		} else if (!pays.equals(other.pays))
+		if (numVille != other.numVille)
 			return false;
 		return true;
 	}
+
+
 	
 	
 	

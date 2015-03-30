@@ -14,8 +14,8 @@ public class VilleTableModel extends AbstractTableModel {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private List<Ville> villes = new ArrayList<>();;
-	private String[] columnsHeader = {"nom", "nbhabitant" };
+	private List<Ville> villes = new ArrayList<>();
+	private String[] columnsHeader = {"nom", "nbhabitant", "pays","capitale" };
 
 	@Override
 	public int getRowCount() {
@@ -39,6 +39,14 @@ public class VilleTableModel extends AbstractTableModel {
 		switch (columnIndex){
 			case 0: return v.getNom();
 			case 1: return v.getNbHabitants();
+			case 2: return v.getPays().getNom();
+			case 3: 
+				Ville capitale = v.getPays().getCapitale();
+				if (capitale.equals(v)){
+					return "Capitale";
+				}else{
+					return "";
+				}
 		}
 		return null;
 	}

@@ -13,5 +13,4 @@ public interface UIGerevilleEventsListener {
 	public void onDeleteVille(Ville v);
 	public void onBtnNewPaysClicked();
 	
-
 }

@@ -24,9 +24,7 @@ public class GerevilleController implements UIGerevilleEventsListener, UIfrmVill
 		
 		this.uiGereville = uiGereville;
 		this.frmVille = frmVille;
-		this.frmPays = frmPays;
-		
-		 
+		this.frmPays = frmPays;	 
 	}
 	
 	public void init(){
@@ -34,17 +32,10 @@ public class GerevilleController implements UIGerevilleEventsListener, UIfrmVill
 		uiGereville.afficheListePays(PaysDAO.getPays());
 	}
 
-
-	
-
-
 	@Override
 	public void onBtnExitClicked() {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
-
-
 
 	@Override
 	public void onSelectedPays(Pays pays) {
@@ -56,42 +47,25 @@ public class GerevilleController implements UIGerevilleEventsListener, UIfrmVill
 				
 				uiGereville.afficherVilles(villes);
 			}
-			
-			
-	
+
 		}else{
 			List<Ville> villes = PaysDAO.getVilles(pays.getNum());
 			uiGereville.afficherVilles(villes);
-		}
-		
+		}		
 	}
-
-
-
-
 
 	@Override
 	public void onBtnNewVilleClicked() {
 		
 		frmVille.clear();
 		frmVille.afficherPays(PaysDAO.getPays());
-	    frmVille.setVisible(true);
-		
+	    frmVille.setVisible(true);		
 	}
-
-
-
-
 
 	@Override
 	public void onCancelClicked() {
-		frmVille.setVisible(false);
-		
+		frmVille.setVisible(false);		
 	}
-
-
-
-
 
 	@Override
 	public void onNewVille(Ville v) {
@@ -107,7 +81,10 @@ public class GerevilleController implements UIGerevilleEventsListener, UIfrmVill
 //		}
 //		
 //		
+				
 		PaysDAO.createVille(v);
+		pays.getCapitale();
+		
 		uiGereville.afficheListePays(PaysDAO.getPays());
 		frmPays.setVisible(false);
 	}
@@ -120,14 +97,11 @@ public class GerevilleController implements UIGerevilleEventsListener, UIfrmVill
 		frmVille.setVisible(true);
 	}
 
+
 	@Override
 	public void onUpdatedVille(Ville v) {
 		uiGereville.selectPays(v.getPays()); //on indique qu'on veut afficher le pays en cours
 	}
-
-
-
-
 
 	@Override
 	public void onNewPays(Pays p) {
@@ -142,24 +116,14 @@ public class GerevilleController implements UIGerevilleEventsListener, UIfrmVill
 		//TODO test if not exist
 		PaysDAO.createPays(p);
 		uiGereville.afficheListePays(PaysDAO.getPays());
-		frmPays.setVisible(false);
-		
-		
+		frmPays.setVisible(false);		
 	}
-
-
-
-
 
 	@Override
 	public void onBtnNewPaysClicked() {
 		frmPays.clear();
 	    frmPays.setVisible(true);		
 	}
-
-
-
-
 
 	@Override
 	public void onDeleteVille(Ville v) {
@@ -173,7 +137,6 @@ public class GerevilleController implements UIGerevilleEventsListener, UIfrmVill
 //		}
 		
 		onSelectedPays(v.getPays());
-		
 	}
 
 

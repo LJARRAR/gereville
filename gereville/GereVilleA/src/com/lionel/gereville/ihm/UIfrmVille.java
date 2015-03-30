@@ -61,7 +61,7 @@ public class UIfrmVille extends JFrame {
 	private JCheckBox cbIsCapitale = new JCheckBox();
 	private JLabel jLabel5 = new JLabel();
 	private JButton btnRetour = new JButton();
-	private JButton btnValider = new JButton();
+	static JButton btnValider = new JButton();
 	private GridBagLayout gridBagLayout1 = new GridBagLayout();
 	
 	private Ville currentVille = null; 
@@ -207,6 +207,7 @@ public class UIfrmVille extends JFrame {
 
 	void cbIsCapitale_clicked(ChangeEvent e) {
 		if (cbIsCapitale.isSelected()) {
+			
 			
 		} else{
 			
