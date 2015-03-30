@@ -27,7 +27,7 @@ public  class Connect {
 
         //  On se connecte via la passerelle jdbc Oracle
 
-        return  DriverManager.getConnection(url,"gereville_user","gereville");
+        return  DriverManager.getConnection(url,"gereville user","password");
       }
         catch(SQLException sqlE)
         {

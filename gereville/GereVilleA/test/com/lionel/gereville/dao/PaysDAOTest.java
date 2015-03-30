@@ -19,6 +19,20 @@ public class PaysDAOTest {
 		Pays p = pays.get(0);
 		assertEquals("FRANCE", p.getNom());
 	}
+	@Test
+	public void testGetPaysList() {
+		List<Pays> pays = PaysDAO.getPays();
+		assertNotNull(pays);
+		assertFalse(pays.isEmpty());
+		Pays p = pays.get(0);
+		assertEquals("FRANCE", p.getNom());
+	}
+	
+	@Test
+	public void testCreatePays(){
+		Pays p = new Pays("BELgIQUE");
+		PaysDAO.createPays(p);		
+	}	
 	
 	@Test
 	public void testGetVille() {
@@ -28,11 +42,12 @@ public class PaysDAOTest {
 		Ville v = villes.get(0);
 		assertEquals("PARIS", v.getNom());
 	}
+
 	@Test
-	public void testCreate(){
-		Pays p = new Pays("BELGIQUE");
-		PaysDAO.createPays(p);
-		
+	public void testCreateVille(){
+		Ville v = new Ville("New-York", PaysDAO.getPays(2));
+		PaysDAO.createVille(v);
 	}
+	
 
 }
