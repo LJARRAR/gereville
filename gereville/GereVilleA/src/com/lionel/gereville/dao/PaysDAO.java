@@ -14,7 +14,8 @@ import com.lionel.gereville.model.Ville;
 public class PaysDAO {
 	 
 	 
-	 public static List<Pays> getPays(){
+	 public static List<Pays> getPays()
+	 {
 		 
 		 Connection c = Connect.cConnect();
 		 
@@ -29,7 +30,8 @@ public class PaysDAO {
 	        ResultSet rs = stm.executeQuery(sql);
 	      
 	        
-	        while (rs.next()){
+	        while (rs.next())
+	        {
 	        	int nbhabitant = rs.getInt("nbhabitant");
 	        	Pays p = new Pays(rs.getString("nom"));
 	        	p.setNum(rs.getInt("num"));
@@ -51,7 +53,8 @@ public class PaysDAO {
 		 
 	 }
 	 
-	 public static Pays getPays(int numPays){
+	 public static Pays getPays(int numPays)
+	 {
 		 Pays p = null;
 		 Connection c = Connect.cConnect();
 		  Statement stm;

@@ -24,13 +24,13 @@ public class AppGereville {
 	{
 		EventQueue.invokeLater(new Runnable() 
 		{
-			public void run() {
-				try {
-					
+			public void run() 
+			{
+				try 
+				{
 					AppGereville app = new AppGereville();
 					app.mainUI.setVisible(true);
 					
-
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -41,13 +41,14 @@ public class AppGereville {
 	/**
 	 * Create the application.
 	 */
-	public AppGereville() {
+	public AppGereville() 
+	{
 		initialize();
 	}
 
 
-	private void initialize() {
-		
+	private void initialize() 
+	{		
 		/**
 		 * init views
 		 */

@@ -1,8 +1,10 @@
 package com.lionel.gereville.controller;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.lionel.gereville.dao.PaysDAO;
+import com.lionel.gereville.dao.VilleDAO;
 import com.lionel.gereville.ihm.UIGereville;
 import com.lionel.gereville.ihm.UIGerevilleEventsListener;
 import com.lionel.gereville.ihm.UIfrmPays;
@@ -47,11 +49,14 @@ public class GerevilleController implements UIGerevilleEventsListener, UIfrmVill
 
 
 	@Override
-	public void onSelectedPays(Pays pays) {
+	public void onSelectedPays(Pays pays) 
+	{
 		uiGereville.clearListVilles();
-		if (pays.getNom().equals("TOUS")){
+		if (pays.getNom().equals("TOUS"))
+		{
 			
-			for (Pays p: PaysDAO.getPays()){
+			for (Pays p: PaysDAO.getPays())
+			{
 				List<Ville> villes = PaysDAO.getVilles(p.getNum());
 				
 				uiGereville.afficherVilles(villes);
@@ -59,7 +64,9 @@ public class GerevilleController implements UIGerevilleEventsListener, UIfrmVill
 			
 			
 	
-		}else{
+		}
+		else
+		{
 			List<Ville> villes = PaysDAO.getVilles(pays.getNum());
 			uiGereville.afficherVilles(villes);
 		}
@@ -71,7 +78,8 @@ public class GerevilleController implements UIGerevilleEventsListener, UIfrmVill
 
 
 	@Override
-	public void onBtnNewVilleClicked() {
+	public void onBtnNewVilleClicked() 
+	{
 		
 		frmVille.clear();
 		frmVille.afficherPays(PaysDAO.getPays());
@@ -84,33 +92,39 @@ public class GerevilleController implements UIGerevilleEventsListener, UIfrmVill
 
 
 	@Override
-	public void onCancelClicked() {
+	public void onCancelClicked() 
+	{
 		frmVille.setVisible(false);
 		
 	}
 
 
-
-
-
 	@Override
-	public void onNewVille(Ville v) {
+	public void onNewVille(Ville v) throws Exception 
+	{
 		//ajouter la ville au pays
-		Pays pays = v.getPays();
+	//	Pays pays = v.getPays();
 		//already exist ?
-		if( pays.getVilles().contains(v)){
+	/*	if(v==v)
+		{
 			frmVille.displayErrorMessage("Ville " + v + " existe déjà");
-		}else{
-			pays.addVille(v);
+		}
+		else
+		{ */
+		
+			VilleDAO.createVille(v);
 			uiGereville.selectPays(v.getPays()); //on indique qu'on veut afficher le pays en cours
+			frmVille.afficherPays(PaysDAO.getPays());
+	//		frmVille.afficherVille(v);
 			frmVille.setVisible(false);
 		}
 		
 		
-	}
+//	}
 
 	@Override
-	public void onSelectedVille(Ville v) {
+	public void onSelectedVille(Ville v) 
+	{
 		frmVille.clear();
 		frmVille.afficherPays(PaysDAO.getPays());
 		frmVille.afficherVille(v);
@@ -118,7 +132,8 @@ public class GerevilleController implements UIGerevilleEventsListener, UIfrmVill
 	}
 
 	@Override
-	public void onUpdatedVille(Ville v) {
+	public void onUpdatedVille(Ville v) 
+	{
 		uiGereville.selectPays(v.getPays()); //on indique qu'on veut afficher le pays en cours
 	}
 
@@ -127,7 +142,8 @@ public class GerevilleController implements UIGerevilleEventsListener, UIfrmVill
 
 
 	@Override
-	public void onNewPays(Pays p) {
+	public void onNewPays(Pays p) 
+	{
 		
 //		if (listePays.contains(p)){
 //			frmPays.displayErrorMessage( "Le pays existe déjà");
@@ -149,7 +165,8 @@ public class GerevilleController implements UIGerevilleEventsListener, UIfrmVill
 
 
 	@Override
-	public void onBtnNewPaysClicked() {
+	public void onBtnNewPaysClicked() 
+	{
 		frmPays.clear();
 	    frmPays.setVisible(true);		
 	}
@@ -159,7 +176,8 @@ public class GerevilleController implements UIGerevilleEventsListener, UIfrmVill
 
 
 	@Override
-	public void onDeleteVille(Ville v) {
+	public void onDeleteVille(Ville v)
+	{
 		//TODO
 //		for (Pays p: listePays){
 //			
@@ -170,6 +188,8 @@ public class GerevilleController implements UIGerevilleEventsListener, UIfrmVill
 //		}
 		
 		onSelectedPays(v.getPays());
+		VilleDAO.deleteVille(v);
+		uiGereville.afficheListePays(PaysDAO.getPays());
 		
 	}
 

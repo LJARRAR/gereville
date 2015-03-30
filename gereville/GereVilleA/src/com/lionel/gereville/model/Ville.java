@@ -1,4 +1,4 @@
-package com.lionel.gereville.model;
+ package com.lionel.gereville.model;
 
 import java.io.Serializable;
 
@@ -34,7 +34,8 @@ public class Ville implements Serializable {
 			this.pays = sPays;
 		}
 
-		public Ville(String sNom, Pays sPays, double dNbHabitants) {
+		public Ville(String sNom, Pays sPays, double dNbHabitants) 
+		{
 			this.nom = sNom;
 			this.pays = sPays;
 			this.nbHabitants = dNbHabitants;
@@ -43,46 +44,55 @@ public class Ville implements Serializable {
 		
 		
 		
-	public int getNumVille() {
+	public int getNumVille() 
+	{
 			return numVille;
 		}
 
 
-		public void setNumVille(int numVille) {
+		public void setNumVille(int numVille) 
+		{
 			this.numVille = numVille;
 		}
 
 
-	public String getNom() {
+	public String getNom() 
+	{
 		return nom;
 	}
 
-	public double getNbHabitants() {
+	public double getNbHabitants() 
+	{
 		return nbHabitants;
 	}
 
-	public void setNbHabitants(double nbHabitants) {
+	public void setNbHabitants(double nbHabitants) 
+	{
 		this.nbHabitants = nbHabitants;
 	}
 
-	public void setNom(String nom) {
+	public void setNom(String nom) 
+	{
 		this.nom = nom;
 	}
 
 	
 	
 	
-	public Pays getPays() {
+	public Pays getPays() 
+	{
 		return pays;
 	}
 
-	public void setPays(Pays pays) {
+	public void setPays(Pays pays) 
+	{
 		this.pays = pays;
 	}
 
 
 	@Override
-	public int hashCode() {
+	public int hashCode() 
+	{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((nom == null) ? 0 : nom.hashCode());

@@ -4,13 +4,22 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
+import com.lionel.gereville.dao.Connect;
+import com.lionel.gereville.dao.VilleDAO;
 import com.lionel.gereville.model.Ville;
+
+import javax.sql.rowset.WebRowSet;
+
+import com.sun.rowset.WebRowSetImpl;
 
 public class UIlistVille extends JTable implements MouseListener, KeyListener{
 
@@ -83,12 +92,17 @@ public class UIlistVille extends JTable implements MouseListener, KeyListener{
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode()==KeyEvent.VK_DELETE){
+	public void keyPressed(KeyEvent e) 
+	{
+		if (e.getKeyCode()==KeyEvent.VK_DELETE)
+		{
 			int reponse = JOptionPane.showConfirmDialog(this, "vous êtes sur de vouloir supprimer une ville ?");
-			if (reponse==JOptionPane.YES_OPTION){
+			if (reponse==JOptionPane.YES_OPTION)
+			{
 				int row = getSelectedRow();
+				
 				listener.onDeleteVille(villeModel.getVille(row));
+				
 			}
 		}
 		
@@ -99,6 +113,8 @@ public class UIlistVille extends JTable implements MouseListener, KeyListener{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
 	
 	
 }

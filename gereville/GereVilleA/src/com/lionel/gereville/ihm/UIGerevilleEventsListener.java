@@ -1,5 +1,7 @@
 package com.lionel.gereville.ihm;
 
+import java.sql.SQLException;
+
 import com.lionel.gereville.model.Pays;
 import com.lionel.gereville.model.Ville;
 

@@ -154,7 +154,12 @@ public class UIfrmVille extends JFrame {
 		btnValider.setText("Valider");
 		btnValider.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnValider_clicked(e);
+				try {
+					btnValider_clicked(e);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 
@@ -218,7 +223,7 @@ public class UIfrmVille extends JFrame {
 	}
 
 	// bouton valider
-	void btnValider_clicked(ActionEvent e) {
+	void btnValider_clicked(ActionEvent e) throws Exception {
 
 	
 		// controles
@@ -266,11 +271,14 @@ public class UIfrmVille extends JFrame {
 		
 	}
 	
-	public void afficherVille(Ville v){
+	public void afficherVille(Ville v)
+	{
+		
 		currentVille = v;
 		txtVilleNom.setText(v.getNom());
 		cbPays.setSelectedItem(v.getPays());
 		txtNbHabitants.setText(String.valueOf(v.getNbHabitants()));
+	
 	}
 
 	public void displayErrorMessage(String msg){
