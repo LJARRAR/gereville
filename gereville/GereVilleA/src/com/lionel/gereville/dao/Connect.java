@@ -32,12 +32,12 @@ public  class Connect {
         catch(SQLException sqlE)
         {
             System.out.println("Sql Erreur " + sqlE.getMessage());
-            return null;
+            throw new RuntimeException();
         }
         catch(Exception e)
         {
            e.printStackTrace();
-            return null;
+           throw new RuntimeException();
         }
  }
 }
