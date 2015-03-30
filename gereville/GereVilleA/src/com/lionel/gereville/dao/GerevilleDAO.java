@@ -141,6 +141,24 @@ public class GerevilleDAO {
 	 }
 	 
 	 
+	 public static void updateVille(Ville v) throws Exception {
+		 Connection c = Connect.cConnect();
+		 PreparedStatement stm;
+		 try {
+				
+				stm = c.prepareStatement("UPDATE ville SET nom = ? , nbhabitants = ? WHERE num = ?");
+				stm.setString(1, v.getNom());
+				stm.setInt(2, v.getNbHabitants());
+				stm.setInt(3, v.getNumVille());
+				
+				stm.executeUpdate();
+				
+		 } catch (SQLException e) {
+				//pb if here
+				 throw new Exception("error while updating  data in table ville" + e.getMessage());
+		}	
+	 }
+	 
 	 public static void createVille(Ville v) throws Exception{
 		 
 		 Connection c = Connect.cConnect();
@@ -151,7 +169,7 @@ public class GerevilleDAO {
 			
 			stm = c.prepareStatement("INSERT INTO ville (nom, nbhabitants) VALUES (?,?)",Statement.RETURN_GENERATED_KEYS);
 			stm.setString(1, v.getNom());
-			stm.setInt(2, (int)v.getNbHabitants());
+			stm.setInt(2, v.getNbHabitants());
 			
 			stm.executeUpdate();
 			

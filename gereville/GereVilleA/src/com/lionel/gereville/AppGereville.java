@@ -180,9 +180,15 @@ public class AppGereville implements UIGerevilleEventsListener, UIfrmVilleEvents
 
 	@Override
 	public void frmVilleUpdateVilleEvent(Ville v) {
-		//TODO update in DB
-		listVilleUI.updateVille(v); //notify model & view
-		frmVille.setVisible(false);
+		try {
+			GerevilleDAO.updateVille(v);
+			
+			listVilleUI.updateVille(v); //notify model & view
+			frmVille.setVisible(false);
+		} catch (Exception e) {
+			frmVille.displayErrorMessage(e.getMessage());
+		}
+		
 		//mainUI.selectPays(v.getPays()); //on indique qu'on veut afficher le pays en cours
 		
 	}
